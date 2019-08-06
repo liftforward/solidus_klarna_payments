@@ -74,4 +74,4 @@ en:
             preferred_country:
               invalid: "is not a valid region (e.g. 'us' or 'de')"
             preferred_payment_method:
-              inclusion: "must be one of: 'invoice', 'pix', 'base_account', 'deferred_interest' or 'fixed_amount'. Leave empty if unsure."
+              inclusion: "must be one of: 'invoice', 'pix', 'base_account', 'deferred_interest', 'fixed_amount' or 'slice_it'. Leave empty if unsure."
