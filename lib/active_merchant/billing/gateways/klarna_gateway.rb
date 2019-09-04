@@ -312,6 +312,7 @@ module ActiveMerchant
 
       def update_payment_source(payment_source, klarna_order_id, attributes = {})
         get(klarna_order_id).tap do |klarna_order|
+          payment_source.order.update! email: klarna_order.body.dig("billing_address", "email")
           payment_source.status = klarna_order.status
           payment_source.fraud_status = klarna_order.fraud_status
           payment_source.expires_at = DateTime.parse(klarna_order.expires_at)
