@@ -127,7 +127,7 @@
             enableSaveOnClick();
           }
         }, function(result) {
-          if (result.approved == false) {
+          if (!result.show_form) {
             denied();
           }
           settings.onAbort(settings);
