@@ -54,7 +54,11 @@ module KlarnaGateway
     def purchase_country
       order.billing_address.try(:country).try(:iso) ||
         order.shipping_address.try(:country).try(:iso) ||
-        region
+        purchase_country_for_region
+    end
+
+    def purchase_country_for_region
+      return region === :uk ? "GB" : region
     end
 
     def order_lines

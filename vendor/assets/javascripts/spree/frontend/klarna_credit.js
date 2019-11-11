@@ -35,7 +35,7 @@
         settings.clientToken = response.token;
 
         // Initialize the Klarna Credit session in the frontend
-        Klarna.Credit.init ({
+        Klarna.Payments.init ({
           client_token: response.token
         });
 
@@ -65,9 +65,9 @@
         return;
       }
 
-      Klarna.Credit.load ({
+      Klarna.Payments.load ({
         container: "#klarna_container",
-        preferred_payment_method: settings.preferredPaymentMethod
+        payment_method_category: "pay_over_time"
       }, function(res) {
         if (res.show_form) {
           settings.showForm = res.show_form;
@@ -87,7 +87,8 @@
         dataType: "json",
         data: {klarna_payment_method_id: settings.paymentId}
       }).done(function(result) {
-        Klarna.Credit.authorize(result, function(res) {
+        result.payment_method_category = "pay_over_time";
+        Klarna.Payments.authorize(result, function(res) {
           if (res.approved === true) {
             settings.authorizationToken.val(res.authorization_token);
             approved(res);
@@ -126,7 +127,7 @@
             enableSaveOnClick();
           }
         }, function(result) {
-          if (result.approved == false) {
+          if (!result.show_form) {
             denied();
           }
           settings.onAbort(settings);
@@ -140,7 +141,7 @@
   };
 
   KlarnaGateway.loadSdk = function(w, d, callback) {
-    var url = "https://credit.klarnacdn.net/lib/v1/api.js";
+    var url = "https://x.klarnacdn.net/kp/lib/v1/api.js";
     var n = d.createElement("script");
     var c = d.getElementById("klarna-credit-lib-x");
     n.async = !0;

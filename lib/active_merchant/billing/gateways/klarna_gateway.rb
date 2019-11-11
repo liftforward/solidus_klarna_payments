@@ -24,11 +24,11 @@ module ActiveMerchant
       end
 
       def create_session(order)
-        Klarna.client(:credit).create_session(order)
+        Klarna.client(:payment).create_session(order)
       end
 
       def update_session(session_id, order)
-        Klarna.client(:credit).update_session(session_id, order)
+        Klarna.client(:payment).update_session(session_id, order)
       end
 
       def purchase(amount, payment_source, options = {})
@@ -46,7 +46,7 @@ module ActiveMerchant
         region = payment_source.payment_method.options[:country]
         serializer = ::KlarnaGateway::OrderSerializer.new(order, region)
 
-        response = Klarna.client(:credit).place_order(payment_source.authorization_token, serializer.to_hash)
+        response = Klarna.client(:payment).place_order(payment_source.authorization_token, serializer.to_hash)
         update_payment_source_from_authorization(payment_source, response, order)
         update_order(response, order)
 
@@ -312,6 +312,7 @@ module ActiveMerchant
 
       def update_payment_source(payment_source, klarna_order_id, attributes = {})
         get(klarna_order_id).tap do |klarna_order|
+          payment_source.order.update! email: klarna_order.body.dig("billing_address", "email")
           payment_source.status = klarna_order.status
           payment_source.fraud_status = klarna_order.fraud_status
           payment_source.expires_at = DateTime.parse(klarna_order.expires_at)
