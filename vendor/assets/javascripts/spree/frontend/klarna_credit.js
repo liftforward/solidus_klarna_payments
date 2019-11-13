@@ -8,6 +8,7 @@
         return settings.paymentChangedElements.filter(":checked").val() === settings.paymentId.toString();
       },
       loadDirectly: false,
+      onShowForm: function() {},
       onSubmit: function() {},
       onAbort: function() {},
       paymentChangedElements: $("input[name=\"order[payments_attributes][][payment_method_id]\"]"),
@@ -71,6 +72,7 @@
       }, function(res) {
         if (res.show_form) {
           settings.showForm = res.show_form;
+          settings.onShowForm(settings);
         } else {
           settings.paymentMethodWrapper.hide();
           window.console && console.log(res);
