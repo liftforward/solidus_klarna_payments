@@ -13,11 +13,7 @@ module SolidusKlarnaPayments
     end
 
     def call
-      if order.klarna_session_expired?
-        create_session
-      else
-        update_session
-      end
+      create_session
 
       return order.klarna_client_token if order.reload.klarna_client_token.present?
 
