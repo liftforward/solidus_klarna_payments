@@ -89,7 +89,7 @@
 
       Klarna.Payments.load(
         {
-          container: "#klarna_container",
+          container: settings.container,
           preferred_payment_method: settings.preferredPaymentMethod,
         },
         function (res) {
@@ -164,7 +164,6 @@
         );
       }
     });
-
     initSession();
     return this;
   };
