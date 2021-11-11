@@ -135,7 +135,7 @@
     settings.paymentChangedElements.on("change", function () {
       // check if Klarna Payments is selected
       if (settings.klarnaSelected(settings)) {
-        loadKlarnaForm();
+        //loadKlarnaForm();
       }
     });
 
