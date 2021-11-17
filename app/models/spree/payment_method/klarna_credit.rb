@@ -90,8 +90,11 @@ module Spree
 
       private
 
+      # TO account for dash in liftforward order number
       def spree_order(options)
-        Spree::Order.find_by(number: options[:order_id].split("-").first)
+        Spree::Order.find_by(
+          number: options[:order_id].split('-').first(2).join('-')
+        )
       end
 
       def tokenization_flow
