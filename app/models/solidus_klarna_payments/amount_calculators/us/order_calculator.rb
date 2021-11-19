@@ -40,7 +40,7 @@ module SolidusKlarnaPayments
           {
             type: "sales_tax",
             quantity: 1,
-            name: "Sales Tax",
+            name: "Estimated Sales Tax",
             reference: "Sales Tax",
             unit_price: order.display_tax_total.cents,
             total_amount: order.display_tax_total.cents,
