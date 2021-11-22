@@ -28,7 +28,8 @@ module SolidusKlarnaPayments
           # Must be within ±1 of total_amount - total_amount * 10000 / (10000 + tax_rate). Negative when type is discount
           total_tax_amount: total_tax_amount,
           image_url: image_url,
-          product_url: product_url
+          product_url: product_url,
+          type: 'physical'
         }
       end
     end
